@@ -836,7 +836,7 @@ body {
 </div>
 
 <script>
-function submitForm() {
+async function submitForm() {
   var first = document.getElementById('f-first').value.trim();
   var last  = document.getElementById('f-last').value.trim();
   var email = document.getElementById('f-email').value.trim();
@@ -847,10 +847,25 @@ function submitForm() {
     alert('Please fill in all required fields.');
     return;
   }
-  var body = 'New FCS Recruiting Inquiry\n\nName: ' + first + ' ' + last + '\nEmail: ' + email + '\nPhone: ' + phone + '\nExperience: ' + exp + '\n\nMessage:\n' + msg;
-  window.location.href = 'mailto:rob@fortiscsg.com?subject=' + encodeURIComponent('FCS Recruiting Inquiry — ' + first + ' ' + last) + '&body=' + encodeURIComponent(body);
-  document.getElementById('recruit-form').style.display = 'none';
-  document.getElementById('form-success').style.display = 'block';
+  var btn = document.querySelector('[onclick="submitForm()"]');
+  btn.disabled = true; btn.textContent = 'SENDING...';
+  try {
+    var res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ first, last, email, phone, exp, msg })
+    });
+    if (res.ok) {
+      document.getElementById('recruit-form').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    } else {
+      alert('Something went wrong. Please email rob@fortiscsg.com directly.');
+      btn.disabled = false; btn.textContent = 'SUBMIT MY INQUIRY';
+    }
+  } catch(e) {
+    alert('Something went wrong. Please email rob@fortiscsg.com directly.');
+    btn.disabled = false; btn.textContent = 'SUBMIT MY INQUIRY';
+  }
 }
 </script>
 
