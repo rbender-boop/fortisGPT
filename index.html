@@ -204,6 +204,55 @@ body {
   0%,100% { box-shadow:0 0 32px rgba(201,165,90,0.4); }
   50%      { box-shadow:0 0 52px rgba(201,165,90,0.75), 0 0 12px rgba(201,165,90,0.3); }
 }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .page { padding: 24px 18px 48px; }
+
+  /* Header */
+  .header { flex-direction:column; align-items:flex-start; gap:10px; margin-bottom:28px; }
+  .header-meta { text-align:left; }
+
+  /* Hero */
+  .hero-hl { font-size:38px; line-height:0.95; }
+  .hero-sub { font-size:13px; }
+
+  /* Stat cards — 2×2 */
+  .stats-row { grid-template-columns: repeat(2,1fr); gap:10px; margin-bottom:28px; }
+  .stat-num { font-size:40px; }
+
+  /* Legend — wrap */
+  .legend { flex-wrap:wrap; justify-content:flex-start; gap:12px; }
+
+  /* Bundle grid — single column */
+  .bundles-grid { grid-template-columns: 1fr; gap:14px; }
+
+  /* Bundle headers — tighten */
+  .bundle-header { padding:10px 14px; }
+  .bundle-title { font-size:10px; }
+
+  /* Column headers */
+  .bundle-col-headers { padding:6px 14px 4px; }
+
+  /* Tool rows */
+  .bundle-tools { padding:4px 14px 10px; }
+  .bundle-tool-row { padding:4px 0; }
+  .bundle-tool-name { font-size:11px; }
+
+  /* Mini checks — shrink boxes */
+  .mini-chk { width:18px; height:18px; font-size:9px; border-radius:3px; }
+  .mini-chk.fcs { font-size:10px; }
+  .mini-checks { gap:3px; }
+  .mini-col-lbl { width:18px; font-size:6.5px; }
+  .mini-checks-hd { gap:3px; }
+
+  /* Footer — stack */
+  .footer { flex-direction:column; align-items:flex-start; gap:24px; }
+  .footer-stats { flex-wrap:wrap; gap:16px; }
+  .footer-right { text-align:left; }
+  .f-div { display:none; }
+  .f-stat-n { font-size:20px; }
+}
 </style>
 </head>
 <body>
