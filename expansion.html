@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -52,7 +52,7 @@ body { background:var(--navy); color:var(--white); font-family:'Manrope',sans-se
 .nav-tab:hover { color:var(--white); }
 .nav-tab.active {
   background:linear-gradient(135deg,#C9A55A,#7A5E2A);
-  color:#06081A;
+  color:#06081A; box-shadow:0 0 16px rgba(201,165,90,0.3); border:none !important;
 }
 
 /* DIVIDER */
@@ -89,10 +89,9 @@ body { background:var(--navy); color:var(--white); font-family:'Manrope',sans-se
     </a>
   </div>
 
-  <!-- SITE NAV -->
   <nav class="site-nav">
-    <a href="index.html" class="nav-tab">The Platform</a>
-    <a href="letter.html" class="nav-tab">Founders' Letter</a>
+    <a href="index.html" class="nav-tab" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border-br)'">The Platform</a>
+    <a href="letter.html" class="nav-tab" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--border-br)'">Founders' Letter</a>
     <a href="expansion.html" class="nav-tab active">The Expansion</a>
   </nav>
 
