@@ -128,7 +128,7 @@ body { background:var(--navy); color:var(--white); font-family:'Manrope',sans-se
       .vx-hub-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#06081A;line-height:1;}
       .vx-hub-sub{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#3D2E10;}
       .vx-hub-tag{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:2px;color:#5C3D0A;margin-top:6px;font-weight:700;}
-      .vx-node{position:absolute;width:155px;transform:translate(-50%,-50%);background:#252850;border:1.5px solid #303570;border-radius:12px;padding:12px 14px;text-align:center;transition:all 0.5s cubic-bezier(0.4,0,0.2,1);z-index:5;white-space:nowrap;isolation:isolate;}
+      .vx-node{position:absolute;width:155px;transform:translate(-50%,-50%);background:#252850;border:1.5px solid #303570;border-radius:12px;padding:12px 14px;text-align:center;transition:all 0.5s cubic-bezier(0.4,0,0.2,1);z-index:5;isolation:isolate;overflow:hidden;}
       .vx-node.vx-active{background:rgba(255,255,255,0.06);border-color:rgba(201,165,90,0.85);box-shadow:0 0 0 1px rgba(201,165,90,0.3),0 0 28px rgba(201,165,90,0.45),0 0 55px rgba(201,165,90,0.15);transform:translate(-50%,-50%) scale(1.08);}
       .vx-node-title{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;color:#A8B4CC;transition:color 0.5s;line-height:1;margin-bottom:4px;}
       .vx-node-sub{font-size:7.5px;letter-spacing:1px;text-transform:uppercase;color:#7481A6;font-weight:700;transition:color 0.5s;white-space:nowrap;}
@@ -159,53 +159,9 @@ body { background:var(--navy); color:var(--white); font-family:'Manrope',sans-se
       (function(){var cur=0;var nodes=[0,1,2,3,4,5].map(function(i){return document.getElementById('vxn'+i);});var spokes=[0,1,2,3,4,5].map(function(i){return document.getElementById('vxs'+i);});function activate(i){nodes.forEach(function(n,j){n.classList.toggle('vx-active',j===i);});spokes.forEach(function(s,j){s.classList.toggle('vx-active',j===i);});}var timer=setInterval(function(){cur=(cur+1)%6;activate(cur);},900);activate(0);var wrap=document.getElementById('vx-wrap');wrap.addEventListener('mouseenter',function(){clearInterval(timer);});wrap.addEventListener('mouseleave',function(){timer=setInterval(function(){cur=(cur+1)%6;activate(cur);},900);});nodes.forEach(function(n,i){n.addEventListener('click',function(){cur=i;activate(i);});});})();
     </script>
 
-      <defs>
-        <radialGradient id="cg" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#E8C87A"/>
-          <stop offset="100%" stop-color="#7A5E2A"/>
-        </radialGradient>
-        <filter id="gl" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="6" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-      <line x1="350" y1="240" x2="350" y2="85"  stroke="#C9A55A" stroke-width="1.5" stroke-opacity="0.3"/>
-      <line x1="350" y1="240" x2="484" y2="163" stroke="#C9A55A" stroke-width="1.5" stroke-opacity="0.3"/>
-      <line x1="350" y1="240" x2="484" y2="317" stroke="#C9A55A" stroke-width="1.5" stroke-opacity="0.3"/>
-      <line x1="350" y1="240" x2="350" y2="395" stroke="#C9A55A" stroke-width="1.5" stroke-opacity="0.3"/>
-      <line x1="350" y1="240" x2="216" y2="317" stroke="#C9A55A" stroke-width="1.5" stroke-opacity="0.3"/>
-      <line x1="350" y1="240" x2="216" y2="163" stroke="#C9A55A" stroke-width="1.5" stroke-opacity="0.3"/>
-      <!-- NET LEASE — gold / heritage -->
-      <rect x="290" y="60" width="120" height="50" rx="8" fill="#252850" stroke="#C9A55A" stroke-width="2"/>
-      <text x="350" y="81" text-anchor="middle" fill="#C9A55A" font-size="14" letter-spacing="2" font-family="Bebas Neue, sans-serif">NET LEASE</text>
-      <text x="350" y="97" text-anchor="middle" fill="#7481A6" font-size="9" font-family="Manrope, sans-serif">HERITAGE VERTICAL</text>
-      <!-- MULTIFAMILY -->
-      <rect x="156" y="138" width="120" height="50" rx="8" fill="#252850" stroke="#303570" stroke-width="1.5"/>
-      <text x="216" y="159" text-anchor="middle" fill="#ffffff" font-size="14" letter-spacing="2" font-family="Bebas Neue, sans-serif">MULTIFAMILY</text>
-      <text x="216" y="175" text-anchor="middle" fill="#7481A6" font-size="9" font-family="Manrope, sans-serif">APARTMENTS &amp; MF</text>
-      <!-- RETAIL -->
-      <rect x="424" y="138" width="120" height="50" rx="8" fill="#252850" stroke="#303570" stroke-width="1.5"/>
-      <text x="484" y="159" text-anchor="middle" fill="#ffffff" font-size="14" letter-spacing="2" font-family="Bebas Neue, sans-serif">RETAIL</text>
-      <text x="484" y="175" text-anchor="middle" fill="#7481A6" font-size="9" font-family="Manrope, sans-serif">SHOPPING &amp; STRIP CTR</text>
-      <!-- MEDICAL -->
-      <rect x="156" y="292" width="120" height="50" rx="8" fill="#252850" stroke="#303570" stroke-width="1.5"/>
-      <text x="216" y="313" text-anchor="middle" fill="#ffffff" font-size="14" letter-spacing="2" font-family="Bebas Neue, sans-serif">MEDICAL</text>
-      <text x="216" y="329" text-anchor="middle" fill="#7481A6" font-size="9" font-family="Manrope, sans-serif">MOB &amp; HEALTHCARE</text>
-      <!-- OFFICE -->
-      <rect x="424" y="292" width="120" height="50" rx="8" fill="#252850" stroke="#303570" stroke-width="1.5"/>
-      <text x="484" y="313" text-anchor="middle" fill="#ffffff" font-size="14" letter-spacing="2" font-family="Bebas Neue, sans-serif">OFFICE</text>
-      <text x="484" y="329" text-anchor="middle" fill="#7481A6" font-size="9" font-family="Manrope, sans-serif">FLEX &amp; PROFESSIONAL</text>
-      <!-- INDUSTRIAL -->
-      <rect x="290" y="370" width="120" height="50" rx="8" fill="#252850" stroke="#303570" stroke-width="1.5"/>
-      <text x="350" y="391" text-anchor="middle" fill="#ffffff" font-size="14" letter-spacing="2" font-family="Bebas Neue, sans-serif">INDUSTRIAL</text>
-      <text x="350" y="407" text-anchor="middle" fill="#7481A6" font-size="9" font-family="Manrope, sans-serif">WAREHOUSE &amp; MFG</text>
-      <!-- Center hub -->
-      <circle cx="350" cy="240" r="68" fill="#1A1D38" stroke="#C9A55A" stroke-width="1.5" stroke-opacity="0.4"/>
-      <circle cx="350" cy="240" r="62" fill="url(#cg)" filter="url(#gl)"/>
-      <text x="350" y="228" text-anchor="middle" fill="#06081A" font-size="21" letter-spacing="3" font-family="Bebas Neue, sans-serif">FORTIS</text>
-      <text x="350" y="247" text-anchor="middle" fill="#06081A" font-size="13" letter-spacing="2.5" font-family="Bebas Neue, sans-serif">CAPITAL</text>
-      <text x="350" y="264" text-anchor="middle" fill="#3D2E10" font-size="9" letter-spacing="1.5" font-family="Manrope, sans-serif" font-weight="700">6 VERTICALS</text>
-    </svg>
+    <div style="text-align:center; margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
+      <p style="font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; color:var(--gold);">We are looking for experienced brokers to lead our team in building these new verticals.</p>
+    </div>
   </div>
 
   <div class="letter-body">
