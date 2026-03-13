@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>6 Verticals — Fortis Capital Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:      #1A1D38;
+  --navy-mid:  #20234A;
+  --navy-card: #252850;
+  --navy-hd:   #1C1F40;
+  --gold:      #C9A55A;
+  --gold-lt:   #E8C87A;
+  --gold-dim:  #5C4820;
+  --white:     #FFFFFF;
+  --muted:     #7481A6;
+  --muted-lt:  #A8B4CC;
+  --green:     #2ECC8F;
+  --border:    #303570;
+  --border-br: #3E4480;
+}
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'Manrope', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.page { max-width: 1100px; margin: 0 auto; padding: 44px 44px 60px; width: 100%; }
+
+/* HEADER */
+.header { display:flex; align-items:center; justify-content:space-between; margin-bottom:48px; }
+.logo-wrap { display:flex; align-items:center; gap:14px; }
+.logo-box {
+  width:48px; height:48px;
+  background:linear-gradient(135deg,#C9A55A 0%,#7A5E2A 100%);
+  border-radius:9px; display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif; font-size:20px; color:#06081A;
+  box-shadow:0 0 30px rgba(201,165,90,0.4);
+}
+.logo-text-main { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:3px; color:var(--gold); line-height:1; }
+.logo-text-sub  { font-size:9.5px; letter-spacing:2.5px; color:var(--muted); text-transform:uppercase; margin-top:4px; font-weight:600; }
+.back-link { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); text-decoration:none; font-weight:700; transition:color 0.2s; }
+.back-link:hover { color:var(--gold); }
+
+/* HERO */
+.hero { text-align:center; margin-bottom:56px; }
+.hero-eyebrow { font-size:9px; letter-spacing:4px; color:var(--gold); text-transform:uppercase; font-weight:700; margin-bottom:14px; }
+.hero-hl { font-family:'Bebas Neue',sans-serif; font-size:58px; line-height:0.92; color:var(--white); margin-bottom:16px; }
+.hero-hl span { color:var(--gold); }
+.hero-sub { font-size:14px; color:var(--muted-lt); font-weight:400; line-height:1.75; max-width:600px; margin:0 auto; }
+
+/* DIAGRAM WRAPPER */
+.diagram-wrap {
+  position: relative;
+  width: 700px;
+  height: 700px;
+  margin: 0 auto 70px;
+}
+
+/* SVG SPOKES */
+.spokes-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+.spoke {
+  stroke: var(--border-br);
+  stroke-width: 1.5;
+  transition: stroke 0.4s, stroke-width 0.4s;
+}
+.spoke.active {
+  stroke: var(--gold);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 6px rgba(201,165,90,0.6));
+}
+
+/* CENTER HUB */
+.hub {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 190px; height: 190px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 35%, #E8C87A 0%, #C9A55A 35%, #7A5E2A 70%, #3D2E10 100%);
+  box-shadow:
+    0 0 0 2px rgba(201,165,90,0.4),
+    0 0 40px rgba(201,165,90,0.35),
+    0 0 80px rgba(201,165,90,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  animation: hub-pulse 3s ease-in-out infinite;
+}
+@keyframes hub-pulse {
+  0%,100% { box-shadow: 0 0 0 2px rgba(201,165,90,0.4), 0 0 40px rgba(201,165,90,0.35), 0 0 80px rgba(201,165,90,0.15); }
+  50%      { box-shadow: 0 0 0 3px rgba(201,165,90,0.6), 0 0 60px rgba(201,165,90,0.55), 0 0 110px rgba(201,165,90,0.25); }
+}
+.hub-name { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:2px; color:#06081A; line-height:1; }
+.hub-sub  { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:3px; color:#3D2E10; margin-top:2px; }
+.hub-tag  { font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:2px; color:#5C3D0A; margin-top:8px; font-weight:600; }
+
+/* VERTICAL NODES */
+.node {
+  position: absolute;
+  width: 160px;
+  background: var(--navy-card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s cubic-bezier(0.4,0,0.2,1);
+  cursor: default;
+  z-index: 5;
+}
+.node .node-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--muted-lt);
+  transition: color 0.5s;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.node .node-sub {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  transition: color 0.5s;
+}
+
+/* ACTIVE NODE */
+.node.active {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(201,165,90,0.8);
+  box-shadow:
+    0 0 0 1px rgba(201,165,90,0.3),
+    0 0 30px rgba(201,165,90,0.4),
+    0 0 60px rgba(201,165,90,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  transform: translate(-50%, -50%) scale(1.12);
+}
+.node.active .node-title { color: #FFFFFF; text-shadow: 0 0 20px rgba(255,255,255,0.6); }
+.node.active .node-sub   { color: var(--gold-lt); }
+
+/* HERITAGE badge */
+.heritage-badge {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  border: 1px solid var(--gold-dim);
+  border-radius: 20px;
+  padding: 2px 8px;
+  margin-top: 7px;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.node.active .heritage-badge { opacity: 1; }
+
+/* RECRUITING SECTION */
+.recruit-section {
+  background: var(--navy-card);
+  border: 1px solid var(--border-br);
+  border-radius: 20px;
+  padding: 52px 56px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+.recruit-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.recruit-eyebrow { font-size:9px; letter-spacing:4px; color:var(--gold); text-transform:uppercase; font-weight:700; margin-bottom:16px; }
+.recruit-hl {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  line-height: 0.95;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.recruit-hl span { color: var(--gold); }
+.recruit-body {
+  font-size: 15px;
+  color: var(--muted-lt);
+  line-height: 1.8;
+  max-width: 720px;
+  margin-bottom: 32px;
+}
+.recruit-body strong { color: var(--white); }
+.verticals-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+.v-chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border-br);
+  color: var(--muted-lt);
+  background: rgba(255,255,255,0.03);
+}
+.recruit-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #C9A55A, #7A5E2A);
+  border: none;
+  border-radius: 10px;
+  padding: 16px 36px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #06081A;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  box-shadow: 0 0 32px rgba(201,165,90,0.35);
+}
+.recruit-cta:hover { opacity: 0.85; }
+
+/* FOOTER */
+.footer {
+  display:flex; align-items:center; justify-content:space-between;
+  padding-top:28px; border-top:1px solid var(--border);
+  margin-top: auto;
+}
+.footer-url { font-family:'Bebas Neue',sans-serif; font-size:17px; letter-spacing:2px; color:var(--gold); }
+.footer-powered { font-family:'IBM Plex Mono',monospace; font-size:8.5px; color:var(--muted); letter-spacing:1px; margin-top:3px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo-wrap">
+    <div class="logo-box">FCS</div>
+    <div>
+      <div class="logo-text-main">FortisEDGE</div>
+      <div class="logo-text-sub">Powered by FortisGPT · Fortis Capital Solutions</div>
+    </div>
+  </div>
+  <a href="index.html" class="back-link">← Platform Overview</a>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Coverage Across Every Major Asset Class</div>
+  <div class="hero-hl">SIX VERTICALS.<br><span>ONE PLATFORM.</span> ZERO LIMITS.</div>
+  <p class="hero-sub">Fortis Capital Solutions operates across six distinct commercial real estate verticals — each powered by the same proprietary FortisEDGE technology stack.</p>
+</div>
+
+<!-- ANIMATED DIAGRAM -->
+<div class="diagram-wrap">
+
+  <!-- SVG SPOKES -->
+  <svg class="spokes-svg" id="spokes-svg" viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
+    <line id="spoke-0" class="spoke" x1="350" y1="350" x2="350" y2="90"/>
+    <line id="spoke-1" class="spoke" x1="350" y1="350" x2="590" y2="222"/>
+    <line id="spoke-2" class="spoke" x1="350" y1="350" x2="590" y2="478"/>
+    <line id="spoke-3" class="spoke" x1="350" y1="350" x2="350" y2="610"/>
+    <line id="spoke-4" class="spoke" x1="350" y1="350" x2="110" y2="478"/>
+    <line id="spoke-5" class="spoke" x1="350" y1="350" x2="110" y2="222"/>
+  </svg>
+
+  <!-- CENTER HUB -->
+  <div class="hub">
+    <div class="hub-name">FORTIS</div>
+    <div class="hub-sub">CAPITAL</div>
+    <div class="hub-tag">6 VERTICALS</div>
+  </div>
+
+  <!-- NODES: positioned via inline style (top/left as % of 700px) -->
+  <!-- Top: Net Lease -->
+  <div class="node" id="node-0" style="top:90px; left:350px;">
+    <div class="node-title">NET LEASE</div>
+    <div class="node-sub">Single Tenant Assets</div>
+    <div class="heritage-badge">Heritage Vertical</div>
+  </div>
+
+  <!-- Top-Right: Retail -->
+  <div class="node" id="node-1" style="top:222px; left:590px;">
+    <div class="node-title">RETAIL</div>
+    <div class="node-sub">Shopping & Strip Ctr</div>
+    <div class="heritage-badge">Now Hiring</div>
+  </div>
+
+  <!-- Bottom-Right: Office -->
+  <div class="node" id="node-2" style="top:478px; left:590px;">
+    <div class="node-title">OFFICE</div>
+    <div class="node-sub">Flex & Professional</div>
+    <div class="heritage-badge">Now Hiring</div>
+  </div>
+
+  <!-- Bottom: Industrial -->
+  <div class="node" id="node-3" style="top:610px; left:350px;">
+    <div class="node-title">INDUSTRIAL</div>
+    <div class="node-sub">Warehouse & MFG</div>
+    <div class="heritage-badge">Now Hiring</div>
+  </div>
+
+  <!-- Bottom-Left: Medical -->
+  <div class="node" id="node-4" style="top:478px; left:110px;">
+    <div class="node-title">MEDICAL</div>
+    <div class="node-sub">MOB & Healthcare</div>
+    <div class="heritage-badge">Now Hiring</div>
+  </div>
+
+  <!-- Top-Left: Multifamily -->
+  <div class="node" id="node-5" style="top:222px; left:110px;">
+    <div class="node-title">MULTIFAMILY</div>
+    <div class="node-sub">Apartments & MF</div>
+    <div class="heritage-badge">Now Hiring</div>
+  </div>
+
+</div><!-- /diagram-wrap -->
+
+<!-- RECRUITING SECTION -->
+<div class="recruit-section">
+  <div class="recruit-eyebrow">Now Recruiting — Vertical Market Leaders</div>
+  <div class="recruit-hl">WE'RE BUILDING<br>THE <span>NEXT GENERATION</span><br>OF CRE LEADERSHIP.</div>
+  <p class="recruit-body">
+    Fortis Capital Solutions is actively seeking <strong>experienced commercial real estate professionals</strong> to lead and grow each of our six verticals. This is not a junior role. We are looking for market leaders — brokers who have built books of business, who know their asset class, and who are ready to operate with the most powerful platform in the industry behind them.
+    <br><br>
+    <strong>FortisEDGE gives you 68 proprietary tools</strong> — AI deal intel, buyer matching, automated outreach, market comps, and more — exclusively available to full-time Fortis agents. No other brokerage in Michigan offers anything close.
+  </p>
+  <div class="verticals-list">
+    <div class="v-chip">Net Lease</div>
+    <div class="v-chip">Retail</div>
+    <div class="v-chip">Office</div>
+    <div class="v-chip">Industrial</div>
+    <div class="v-chip">Medical / MOB</div>
+    <div class="v-chip">Multifamily</div>
+  </div>
+  <a href="index.html#recruit" class="recruit-cta">START A CONFIDENTIAL CONVERSATION →</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>
+    <div class="footer-url">FortisGPT.com</div>
+    <div class="footer-powered">FORTISEDGE · POWERED BY FORTISGPT · FORTIS CAPITAL SOLUTIONS · MARCH 2026</div>
+  </div>
+  <a href="index.html" style="font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); text-decoration:none; font-weight:700;">← BACK TO PLATFORM OVERVIEW</a>
+</footer>
+
+</div><!-- /page -->
+
+<script>
+  const nodes = document.querySelectorAll('.node');
+  const spokes = document.querySelectorAll('.spoke');
+  let current = 0;
+  let interval;
+
+  function activate(index) {
+    nodes.forEach((n, i) => {
+      n.classList.toggle('active', i === index);
+    });
+    spokes.forEach((s, i) => {
+      s.classList.toggle('active', i === index);
+    });
+  }
+
+  function next() {
+    current = (current + 1) % nodes.length;
+    activate(current);
+  }
+
+  // Start
+  activate(0);
+  interval = setInterval(next, 1800);
+
+  // Pause on hover
+  document.querySelector('.diagram-wrap').addEventListener('mouseenter', () => clearInterval(interval));
+  document.querySelector('.diagram-wrap').addEventListener('mouseleave', () => {
+    interval = setInterval(next, 1800);
+  });
+
+  // Click to select
+  nodes.forEach((node, i) => {
+    node.addEventListener('click', () => {
+      current = i;
+      activate(i);
+    });
+  });
+</script>
+</body>
+</html>
