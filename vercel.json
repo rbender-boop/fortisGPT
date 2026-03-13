@@ -9,6 +9,7 @@
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/public/(.*)", "dest": "/public/$1" },
     { "src": "/letter", "dest": "/letter.html" },
+    { "src": "/expansion", "dest": "/expansion.html" },
     { "src": "/", "dest": "/index.html" }
   ]
 }
