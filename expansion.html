@@ -139,13 +139,13 @@ body { background:var(--navy); color:var(--white); font-family:'Manrope',sans-se
     </style>
     <div class="vx-wrap" id="vx-wrap">
       <svg class="vx-svg" viewBox="0 0 660 560" xmlns="http://www.w3.org/2000/svg">
-        <!-- Spokes run from hub edge to node edge only — not through cards -->
-        <line id="vxs0" class="vx-spoke" x1="330" y1="205" x2="330" y2="150"/>
-        <line id="vxs1" class="vx-spoke" x1="397" y1="246" x2="488" y2="201"/>
-        <line id="vxs2" class="vx-spoke" x1="397" y1="314" x2="488" y2="359"/>
-        <line id="vxs3" class="vx-spoke" x1="330" y1="355" x2="330" y2="410"/>
-        <line id="vxs4" class="vx-spoke" x1="263" y1="314" x2="172" y2="359"/>
-        <line id="vxs5" class="vx-spoke" x1="263" y1="246" x2="172" y2="201"/>
+        <!-- Uniform spokes: hub edge outward ~80px, floating, not touching cards -->
+        <line id="vxs0" class="vx-spoke" x1="330" y1="205" x2="330" y2="175"/>
+        <line id="vxs1" class="vx-spoke" x1="397" y1="246" x2="452" y2="218"/>
+        <line id="vxs2" class="vx-spoke" x1="397" y1="314" x2="452" y2="342"/>
+        <line id="vxs3" class="vx-spoke" x1="330" y1="355" x2="330" y2="385"/>
+        <line id="vxs4" class="vx-spoke" x1="263" y1="314" x2="208" y2="342"/>
+        <line id="vxs5" class="vx-spoke" x1="263" y1="246" x2="208" y2="218"/>
       </svg>
       <div class="vx-hub"><div class="vx-hub-name">FORTIS</div><div class="vx-hub-sub">CAPITAL</div><div class="vx-hub-tag">6 VERTICALS</div></div>
       <div class="vx-node" id="vxn0" style="top:70px;left:330px;"><div class="vx-node-title">NET LEASE</div><div class="vx-node-sub">Single Tenant Assets</div><div class="vx-badge">Heritage Vertical</div></div>
@@ -156,7 +156,7 @@ body { background:var(--navy); color:var(--white); font-family:'Manrope',sans-se
       <div class="vx-node" id="vxn5" style="top:165px;left:100px;"><div class="vx-node-title">MULTIFAMILY</div><div class="vx-node-sub">Apartments &amp; MF</div><div class="vx-badge">Now Hiring</div></div>
     </div>
     <script>
-      (function(){var cur=0;var nodes=[0,1,2,3,4,5].map(function(i){return document.getElementById('vxn'+i);});var spokes=[0,1,2,3,4,5].map(function(i){return document.getElementById('vxs'+i);});function activate(i){nodes.forEach(function(n,j){n.classList.toggle('vx-active',j===i);});spokes.forEach(function(s,j){s.classList.toggle('vx-active',j===i);});}var timer=setInterval(function(){cur=(cur+1)%6;activate(cur);},1800);activate(0);var wrap=document.getElementById('vx-wrap');wrap.addEventListener('mouseenter',function(){clearInterval(timer);});wrap.addEventListener('mouseleave',function(){timer=setInterval(function(){cur=(cur+1)%6;activate(cur);},1800);});nodes.forEach(function(n,i){n.addEventListener('click',function(){cur=i;activate(i);});});})();
+      (function(){var cur=0;var nodes=[0,1,2,3,4,5].map(function(i){return document.getElementById('vxn'+i);});var spokes=[0,1,2,3,4,5].map(function(i){return document.getElementById('vxs'+i);});function activate(i){nodes.forEach(function(n,j){n.classList.toggle('vx-active',j===i);});spokes.forEach(function(s,j){s.classList.toggle('vx-active',j===i);});}var timer=setInterval(function(){cur=(cur+1)%6;activate(cur);},900);activate(0);var wrap=document.getElementById('vx-wrap');wrap.addEventListener('mouseenter',function(){clearInterval(timer);});wrap.addEventListener('mouseleave',function(){timer=setInterval(function(){cur=(cur+1)%6;activate(cur);},900);});nodes.forEach(function(n,i){n.addEventListener('click',function(){cur=i;activate(i);});});})();
     </script>
 
       <defs>
