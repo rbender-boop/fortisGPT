@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -200,6 +200,10 @@ body {
 .footer-right { text-align:right; }
 .footer-url { font-family:'Bebas Neue',sans-serif; font-size:17px; letter-spacing:2px; color:var(--gold); margin-bottom:3px; }
 .footer-powered { font-family:'IBM Plex Mono',monospace; font-size:8.5px; color:var(--muted); letter-spacing:1px; }
+@keyframes pulse-gold {
+  0%,100% { box-shadow:0 0 32px rgba(201,165,90,0.4); }
+  50%      { box-shadow:0 0 52px rgba(201,165,90,0.75), 0 0 12px rgba(201,165,90,0.3); }
+}
 </style>
 </head>
 <body>
@@ -226,7 +230,7 @@ body {
   <div class="hero-hl">THE PLATFORM BUILT FOR THE<br><span>NEXT GENERATION OF</span><br>BROKER WORKFLOW</div>
   <p class="hero-sub">68 proprietary tools. Purpose-built for transactional brokers. Nothing else comes close.</p>
   <div style="margin-top:28px;">
-    <a href="letter.html" style="display:inline-flex; align-items:center; gap:10px; border:1px solid var(--gold-dim); border-radius:8px; padding:12px 26px; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:2px; color:var(--gold); text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(201,165,90,0.1)';this.style.borderColor='var(--gold)'" onmouseout="this.style.background='transparent';this.style.borderColor='var(--gold-dim)'">
+    <a href="letter.html" style="display:inline-flex; align-items:center; gap:12px; background:linear-gradient(135deg,#C9A55A,#7A5E2A); border:none; border-radius:10px; padding:16px 36px; font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:2px; color:#06081A; text-decoration:none; transition:opacity 0.2s; box-shadow:0 0 32px rgba(201,165,90,0.4); animation:pulse-gold 2.4s ease-in-out infinite;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
       A MESSAGE FROM THE FOUNDERS &nbsp;→
     </a>
   </div>
