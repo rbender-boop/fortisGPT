@@ -113,12 +113,51 @@ body { background:var(--navy); color:var(--white); font-family:'Manrope',sans-se
     </div>
   </div>
 
-  <!-- SIX VERTICALS HUB & SPOKE -->
-  <div style="background:var(--navy-card); border:1px solid var(--border); border-radius:16px; padding:32px 24px 16px; margin:40px 0;">
-    <div style="text-align:center; margin-bottom:8px;">
+  <!-- SIX VERTICALS HUB & SPOKE — ANIMATED -->
+  <div style="background:var(--navy-card); border:1px solid var(--border); border-radius:16px; padding:32px 24px 32px; margin:40px 0;">
+    <div style="text-align:center; margin-bottom:24px;">
       <div style="font-size:9px; letter-spacing:4px; color:var(--muted); text-transform:uppercase; font-weight:700;">Coverage Across Every Major Asset Class</div>
     </div>
-    <svg viewBox="0 0 700 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+    <style>
+      .vx-wrap{position:relative;width:100%;max-width:600px;height:520px;margin:0 auto;}
+      .vx-svg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+      .vx-spoke{stroke:#3E4480;stroke-width:1.5;transition:stroke 0.5s,stroke-width 0.5s;}
+      .vx-spoke.vx-active{stroke:#C9A55A;stroke-width:2.5;filter:drop-shadow(0 0 5px rgba(201,165,90,0.7));}
+      .vx-hub{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 38% 35%,#E8C87A 0%,#C9A55A 35%,#7A5E2A 70%,#3D2E10 100%);box-shadow:0 0 0 2px rgba(201,165,90,0.4),0 0 40px rgba(201,165,90,0.4);display:flex;flex-direction:column;align-items:center;justify-content:center;animation:vx-hub-pulse 3s ease-in-out infinite;z-index:10;}
+      @keyframes vx-hub-pulse{0%,100%{box-shadow:0 0 0 2px rgba(201,165,90,0.4),0 0 40px rgba(201,165,90,0.35);}50%{box-shadow:0 0 0 3px rgba(201,165,90,0.6),0 0 65px rgba(201,165,90,0.55);}}
+      .vx-hub-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:#06081A;line-height:1;}
+      .vx-hub-sub{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:#3D2E10;}
+      .vx-hub-tag{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:2px;color:#5C3D0A;margin-top:6px;font-weight:700;}
+      .vx-node{position:absolute;width:138px;transform:translate(-50%,-50%);background:#252850;border:1.5px solid #303570;border-radius:12px;padding:14px 16px;text-align:center;transition:all 0.5s cubic-bezier(0.4,0,0.2,1);z-index:5;}
+      .vx-node.vx-active{background:rgba(255,255,255,0.06);border-color:rgba(201,165,90,0.85);box-shadow:0 0 0 1px rgba(201,165,90,0.3),0 0 28px rgba(201,165,90,0.45),0 0 55px rgba(201,165,90,0.15);transform:translate(-50%,-50%) scale(1.1);}
+      .vx-node-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#A8B4CC;transition:color 0.5s;line-height:1;margin-bottom:4px;}
+      .vx-node-sub{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#7481A6;font-weight:700;transition:color 0.5s;}
+      .vx-node.vx-active .vx-node-title{color:#FFFFFF;text-shadow:0 0 18px rgba(255,255,255,0.5);}
+      .vx-node.vx-active .vx-node-sub{color:#E8C87A;}
+      .vx-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:7px;letter-spacing:1px;color:#C9A55A;border:1px solid #5C4820;border-radius:20px;padding:2px 7px;margin-top:6px;text-transform:uppercase;opacity:0;transition:opacity 0.5s;}
+      .vx-node.vx-active .vx-badge{opacity:1;}
+    </style>
+    <div class="vx-wrap" id="vx-wrap">
+      <svg class="vx-svg" viewBox="0 0 600 520" xmlns="http://www.w3.org/2000/svg">
+        <line id="vxs0" class="vx-spoke" x1="300" y1="260" x2="300" y2="60"/>
+        <line id="vxs1" class="vx-spoke" x1="300" y1="260" x2="510" y2="155"/>
+        <line id="vxs2" class="vx-spoke" x1="300" y1="260" x2="510" y2="365"/>
+        <line id="vxs3" class="vx-spoke" x1="300" y1="260" x2="300" y2="460"/>
+        <line id="vxs4" class="vx-spoke" x1="300" y1="260" x2="90" y2="365"/>
+        <line id="vxs5" class="vx-spoke" x1="300" y1="260" x2="90" y2="155"/>
+      </svg>
+      <div class="vx-hub"><div class="vx-hub-name">FORTIS</div><div class="vx-hub-sub">CAPITAL</div><div class="vx-hub-tag">6 VERTICALS</div></div>
+      <div class="vx-node" id="vxn0" style="top:60px;left:300px;"><div class="vx-node-title">NET LEASE</div><div class="vx-node-sub">Single Tenant Assets</div><div class="vx-badge">Heritage Vertical</div></div>
+      <div class="vx-node" id="vxn1" style="top:155px;left:510px;"><div class="vx-node-title">RETAIL</div><div class="vx-node-sub">Shopping &amp; Strip Ctr</div><div class="vx-badge">Now Hiring</div></div>
+      <div class="vx-node" id="vxn2" style="top:365px;left:510px;"><div class="vx-node-title">OFFICE</div><div class="vx-node-sub">Flex &amp; Professional</div><div class="vx-badge">Now Hiring</div></div>
+      <div class="vx-node" id="vxn3" style="top:460px;left:300px;"><div class="vx-node-title">INDUSTRIAL</div><div class="vx-node-sub">Warehouse &amp; MFG</div><div class="vx-badge">Now Hiring</div></div>
+      <div class="vx-node" id="vxn4" style="top:365px;left:90px;"><div class="vx-node-title">MEDICAL</div><div class="vx-node-sub">MOB &amp; Healthcare</div><div class="vx-badge">Now Hiring</div></div>
+      <div class="vx-node" id="vxn5" style="top:155px;left:90px;"><div class="vx-node-title">MULTIFAMILY</div><div class="vx-node-sub">Apartments &amp; MF</div><div class="vx-badge">Now Hiring</div></div>
+    </div>
+    <script>
+      (function(){var cur=0;var nodes=[0,1,2,3,4,5].map(function(i){return document.getElementById('vxn'+i);});var spokes=[0,1,2,3,4,5].map(function(i){return document.getElementById('vxs'+i);});function activate(i){nodes.forEach(function(n,j){n.classList.toggle('vx-active',j===i);});spokes.forEach(function(s,j){s.classList.toggle('vx-active',j===i);});}var timer=setInterval(function(){cur=(cur+1)%6;activate(cur);},1800);activate(0);var wrap=document.getElementById('vx-wrap');wrap.addEventListener('mouseenter',function(){clearInterval(timer);});wrap.addEventListener('mouseleave',function(){timer=setInterval(function(){cur=(cur+1)%6;activate(cur);},1800);});nodes.forEach(function(n,i){n.addEventListener('click',function(){cur=i;activate(i);});});})();
+    </script>
+
       <defs>
         <radialGradient id="cg" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="#E8C87A"/>
