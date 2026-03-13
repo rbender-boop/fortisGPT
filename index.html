@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FortisEDGE — Platform Comparison</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:      #1A1D38;
+  --navy-mid:  #20234A;
+  --navy-card: #252850;
+  --navy-hd:   #1C1F40;
+  --gold:      #C9A55A;
+  --gold-lt:   #E8C87A;
+  --gold-dim:  #5C4820;
+  --white:     #FFFFFF;
+  --muted:     #7481A6;
+  --muted-lt:  #A8B4CC;
+  --green:     #2ECC8F;
+  --red:       #E03E52;
+  --amber:     #E0A030;
+  --border:    #303570;
+  --border-br: #3E4480;
+}
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'Manrope', sans-serif;
+  min-height: 100vh;
+}
+.page { max-width: 1280px; margin: 0 auto; padding: 44px 44px 60px; }
+
+/* ── HEADER ── */
+.header { display:flex; align-items:center; justify-content:space-between; margin-bottom:40px; }
+.logo-wrap { display:flex; align-items:center; gap:14px; }
+.logo-box {
+  width:48px; height:48px;
+  background:linear-gradient(135deg,#C9A55A 0%,#7A5E2A 100%);
+  border-radius:9px; display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif; font-size:20px; color:#06081A;
+  box-shadow:0 0 30px rgba(201,165,90,0.4); flex-shrink:0;
+}
+.logo-text-main { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:3px; color:var(--gold); line-height:1; }
+.logo-text-sub  { font-size:9.5px; letter-spacing:2.5px; color:var(--muted); text-transform:uppercase; margin-top:4px; font-weight:600; }
+.header-meta { text-align:right; }
+.header-meta-top { font-size:9px; letter-spacing:3px; color:var(--muted); text-transform:uppercase; margin-bottom:3px; font-weight:600; }
+.header-meta-bot { font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--gold); font-weight:600; }
+
+/* ── HERO ── */
+.hero { text-align:center; margin-bottom:40px; }
+.hero-eyebrow { font-size:9px; letter-spacing:4px; color:var(--gold); text-transform:uppercase; font-weight:700; margin-bottom:14px; }
+.hero-hl { font-family:'Bebas Neue',sans-serif; font-size:64px; line-height:0.92; letter-spacing:1px; color:var(--white); margin-bottom:16px; }
+.hero-hl span { color:var(--gold); }
+.hero-sub { font-size:14px; color:var(--muted-lt); font-weight:400; line-height:1.7; max-width:580px; margin:0 auto; }
+
+/* ── STAT CARDS ── */
+.stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:44px; }
+.stat-card {
+  background:var(--navy-card); border:1px solid var(--border); border-radius:12px;
+  padding:20px 18px; text-align:center; position:relative; overflow:hidden;
+}
+.stat-card.hero-card {
+  background:linear-gradient(135deg,#1D1206 0%,#120C04 100%); border-color:var(--gold-dim);
+}
+.stat-card.hero-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.stat-num { font-family:'Bebas Neue',sans-serif; font-size:52px; line-height:1; display:block; margin-bottom:4px; }
+.stat-num.gold { color:var(--gold); }
+.stat-num.dim  { color:var(--muted-lt); }
+.stat-lbl { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:700; }
+.stat-detail { font-family:'IBM Plex Mono',monospace; font-size:8.5px; color:var(--gold-dim); margin-top:5px; }
+
+/* ── SECTION HEADING ── */
+.section-hd {
+  font-size:9px; letter-spacing:3px; text-transform:uppercase;
+  color:var(--muted); font-weight:700; margin-bottom:18px;
+  display:flex; align-items:center; gap:12px;
+}
+.section-hd::after { content:''; flex:1; height:1px; background:var(--border); }
+.section-hd-accent { color:var(--gold); }
+
+/* ── LEGEND ── */
+.legend { display:flex; align-items:center; gap:22px; justify-content:flex-end; margin-bottom:18px; }
+.legend-item { display:flex; align-items:center; gap:7px; font-size:9.5px; color:var(--muted); font-weight:600; }
+.lgnd-swatch { width:18px; height:18px; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; }
+.lgnd-fcs  { background:rgba(46,204,143,0.25); border:1.5px solid rgba(46,204,143,0.6); color:var(--green); }
+.lgnd-yes  { background:rgba(46,204,143,0.12); border:1px solid rgba(46,204,143,0.3); color:var(--green); }
+.lgnd-part { background:rgba(224,160,48,0.12); border:1px solid rgba(224,160,48,0.3); color:var(--amber); }
+.lgnd-no   { background:rgba(224,62,82,0.10);  border:1px solid rgba(224,62,82,0.25); color:var(--red); }
+
+/* ── BUNDLES GRID — 2 COLUMNS ── */
+.bundles-section { margin-bottom:44px; }
+.bundles-grid {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:16px;
+}
+
+/* ── BUNDLE CARD ── */
+.bundle-card {
+  background:var(--navy-card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
+
+/* AI card gets gold accent on top */
+.bundle-card.ai-card {
+  border-color: rgba(201,165,90,0.4);
+}
+.bundle-card.ai-card::before {
+  content:''; display:block; height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent);
+}
+
+.bundle-header {
+  padding:12px 18px;
+  background:var(--navy-hd);
+  border-bottom:1px solid var(--border-br);
+  display:flex; align-items:center; gap:10px;
+}
+.bundle-icon { font-size:16px; }
+.bundle-title { font-size:11px; font-weight:800; color:var(--gold); letter-spacing:1px; text-transform:uppercase; }
+.bundle-count {
+  margin-left:auto;
+  font-family:'IBM Plex Mono',monospace; font-size:9px; font-weight:700;
+  color:var(--gold); background:rgba(201,165,90,0.12); border:1px solid var(--gold-dim);
+  border-radius:20px; padding:2px 9px;
+}
+
+/* ── COLUMN HEADERS ── */
+.bundle-col-headers {
+  display:flex; align-items:center;
+  padding:7px 18px 5px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  background:rgba(255,255,255,0.015);
+}
+.bundle-tool-label-hd {
+  flex:1; font-size:8.5px; font-weight:800; color:var(--muted);
+  text-transform:uppercase; letter-spacing:0.8px;
+}
+.mini-checks-hd { display:flex; gap:4px; }
+.mini-col-lbl {
+  width:22px; text-align:center;
+  font-size:7px; color:var(--muted); letter-spacing:0;
+  font-weight:800; text-transform:uppercase; line-height:1.2;
+}
+.mini-col-lbl.fcs-lbl {
+  color:var(--green);
+  font-size:7.5px;
+}
+
+/* ── TOOL ROWS ── */
+.bundle-tools { padding:6px 18px 12px; }
+.bundle-tool-row {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.bundle-tool-row:last-child { border-bottom:none; }
+.bundle-tool-name {
+  font-size:12px; color:var(--muted-lt); font-weight:500;
+  flex:1; padding-right:10px; line-height:1.2;
+}
+
+/* ── MINI CHECKS ── */
+.mini-checks { display:flex; gap:4px; }
+.mini-chk {
+  width:22px; height:22px; border-radius:4px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px; font-weight:800; line-height:1;
+  flex-shrink:0;
+}
+/* FCS — bright green, stronger border, slightly larger text */
+.mini-chk.fcs {
+  background:rgba(46,204,143,0.22);
+  color:var(--green);
+  border:1.5px solid rgba(46,204,143,0.55);
+  font-size:12px;
+  box-shadow:0 0 6px rgba(46,204,143,0.18);
+}
+.mini-chk.yes  { background:rgba(46,204,143,0.10); color:var(--green); border:1px solid rgba(46,204,143,0.22); }
+.mini-chk.no   { background:rgba(224,62,82,0.09);  color:var(--red);   border:1px solid rgba(224,62,82,0.20); }
+.mini-chk.part { background:rgba(224,160,48,0.10); color:var(--amber); border:1px solid rgba(224,160,48,0.22); font-size:8px; }
+
+/* ── FOOTER ── */
+.footer {
+  display:flex; align-items:center; justify-content:space-between;
+  padding-top:28px; border-top:1px solid var(--border);
+}
+.footer-stats { display:flex; align-items:center; gap:28px; }
+.f-stat { display:flex; flex-direction:column; gap:2px; }
+.f-stat-n { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--gold); line-height:1; }
+.f-stat-l { font-size:8.5px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:700; }
+.f-div { width:1px; height:30px; background:var(--border-br); }
+.footer-right { text-align:right; }
+.footer-url { font-family:'Bebas Neue',sans-serif; font-size:17px; letter-spacing:2px; color:var(--gold); margin-bottom:3px; }
+.footer-powered { font-family:'IBM Plex Mono',monospace; font-size:8.5px; color:var(--muted); letter-spacing:1px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo-wrap">
+    <div class="logo-box">FCS</div>
+    <div>
+      <div class="logo-text-main">FortisEDGE</div>
+      <div class="logo-text-sub">Powered by FortisGPT · Fortis Capital Solutions</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <div class="header-meta-top">Competitive Intelligence Report</div>
+    <div class="header-meta-bot">FortisGPT.com · March 2026</div>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Platform Technology Analysis · Commercial Real Estate</div>
+  <div class="hero-hl">THE PLATFORM BUILT FOR THE<br><span>NEXT GENERATION OF</span><br>BROKER WORKFLOW</div>
+  <p class="hero-sub">68 proprietary tools. Purpose-built for transactional brokers. Nothing else comes close.</p>
+</div>
+
+<!-- STAT CARDS -->
+<div class="stats-row">
+  <div class="stat-card hero-card">
+    <span class="stat-num gold">68</span>
+    <div class="stat-lbl">FortisEDGE Tools</div>
+    <div class="stat-detail">AI-Powered · Fully Proprietary</div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num dim">14</span>
+    <div class="stat-lbl">Competitor Average</div>
+    <div class="stat-detail">Across 7 platforms &amp; firms</div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num dim">17</span>
+    <div class="stat-lbl">Best Competitor</div>
+    <div class="stat-detail">Buildout / Rethink</div>
+  </div>
+  <div class="stat-card hero-card">
+    <span class="stat-num gold">5×</span>
+    <div class="stat-lbl">More Capability</div>
+    <div class="stat-detail">vs. industry average</div>
+  </div>
+</div>
+
+<!-- ALL 67 TOOLS — 2 COLUMN -->
+<div class="bundles-section">
+  <div class="section-hd"><span class="section-hd-accent">All 68</span>&nbsp;Proprietary FortisEDGE Capabilities — No Competitor Comes Close</div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="lgnd-swatch lgnd-fcs">✓</div> FortisEDGE</div>
+    <div class="legend-item"><div class="lgnd-swatch lgnd-yes">✓</div> Competitor Has</div>
+    <div class="legend-item"><div class="lgnd-swatch lgnd-no">✗</div> Does Not Have</div>
+  </div>
+
+  <div class="bundles-grid">
+
+    <!-- ══ 1: FORTISGPT AI SUITE ══ -->
+    <div class="bundle-card ai-card">
+      <div class="bundle-header">
+        <span class="bundle-icon">🤖</span>
+        <span class="bundle-title">FortisGPT AI Suite</span>
+        <span class="bundle-count">9 tools</span>
+      </div>
+      <div class="bundle-col-headers">
+        <div class="bundle-tool-label-hd">Tool</div>
+        <div class="mini-checks-hd">
+          <div class="mini-col-lbl fcs-lbl">FCS</div>
+          <div class="mini-col-lbl">RHQ</div><div class="mini-col-lbl">BLD</div><div class="mini-col-lbl">CRX</div>
+          <div class="mini-col-lbl">CLK</div><div class="mini-col-lbl">MTW</div><div class="mini-col-lbl">M&amp;M</div><div class="mini-col-lbl">SRS</div>
+        </div>
+      </div>
+      <div class="bundle-tools">
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Conversational AI (Phil)</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">AI Semantic Memory Engine</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Pre-Call Live Research Intel</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">AI Voice Outreach (ElevenLabs)</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">AI Self-Improvement Engine</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">RingCentral Live Call AI</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Morning Briefing AI</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">AI Activity Feed</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Hive Mind Intel</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 2: CONTACT MANAGEMENT ══ -->
+    <div class="bundle-card">
+      <div class="bundle-header">
+        <span class="bundle-icon">👤</span>
+        <span class="bundle-title">Contact Management</span>
+        <span class="bundle-count">6 tools</span>
+      </div>
+      <div class="bundle-col-headers">
+        <div class="bundle-tool-label-hd">Tool</div>
+        <div class="mini-checks-hd">
+          <div class="mini-col-lbl fcs-lbl">FCS</div>
+          <div class="mini-col-lbl">RHQ</div><div class="mini-col-lbl">BLD</div><div class="mini-col-lbl">CRX</div>
+          <div class="mini-col-lbl">CLK</div><div class="mini-col-lbl">MTW</div><div class="mini-col-lbl">M&amp;M</div><div class="mini-col-lbl">SRS</div>
+        </div>
+      </div>
+      <div class="bundle-tools">
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">All Contacts CRM</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Dormant Alerts</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Apollo Prospector</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Family Office Buyer Database</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Interest Generator</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Pre-Call Interest Gen</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 3: OM GEN & MARKETING AI ══ -->
+    <div class="bundle-card">
+      <div class="bundle-header">
+        <span class="bundle-icon">📄</span>
+        <span class="bundle-title">OM Gen &amp; Marketing AI</span>
+        <span class="bundle-count">12 tools</span>
+      </div>
+      <div class="bundle-col-headers">
+        <div class="bundle-tool-label-hd">Tool</div>
+        <div class="mini-checks-hd">
+          <div class="mini-col-lbl fcs-lbl">FCS</div>
+          <div class="mini-col-lbl">RHQ</div><div class="mini-col-lbl">BLD</div><div class="mini-col-lbl">CRX</div>
+          <div class="mini-col-lbl">CLK</div><div class="mini-col-lbl">MTW</div><div class="mini-col-lbl">M&amp;M</div><div class="mini-col-lbl">SRS</div>
+        </div>
+      </div>
+      <div class="bundle-tools">
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Multi-Vertical OM Generator</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Foot Traffic Reports (Placer.ai)</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Listing Syndication</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Lease Summary Generator</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">OM Library</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Postcard Templates</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Email Marketing Hub</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Email Blast Builder</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">SMS Hub</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Marketing Video Creator</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Newsletter Builder</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">LinkedIn Publisher</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 4: PIPELINE & DEAL MANAGEMENT ══ -->
+    <div class="bundle-card">
+      <div class="bundle-header">
+        <span class="bundle-icon">📌</span>
+        <span class="bundle-title">Pipeline &amp; Deal Management</span>
+        <span class="bundle-count">9 tools</span>
+      </div>
+      <div class="bundle-col-headers">
+        <div class="bundle-tool-label-hd">Tool</div>
+        <div class="mini-checks-hd">
+          <div class="mini-col-lbl fcs-lbl">FCS</div>
+          <div class="mini-col-lbl">RHQ</div><div class="mini-col-lbl">BLD</div><div class="mini-col-lbl">CRX</div>
+          <div class="mini-col-lbl">CLK</div><div class="mini-col-lbl">MTW</div><div class="mini-col-lbl">M&amp;M</div><div class="mini-col-lbl">SRS</div>
+        </div>
+      </div>
+      <div class="bundle-tools">
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Deal Pipeline</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Due Diligence Center</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Deal Room</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Follow-Up Queue</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Saved Listings</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Listing Manager</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Vault / File Storage</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">My File Workspace</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">AI Lease Review</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 5: AI CLIENT OUTREACH ══ -->
+    <div class="bundle-card">
+      <div class="bundle-header">
+        <span class="bundle-icon">📞</span>
+        <span class="bundle-title">AI Client Outreach</span>
+        <span class="bundle-count">7 tools</span>
+      </div>
+      <div class="bundle-col-headers">
+        <div class="bundle-tool-label-hd">Tool</div>
+        <div class="mini-checks-hd">
+          <div class="mini-col-lbl fcs-lbl">FCS</div>
+          <div class="mini-col-lbl">RHQ</div><div class="mini-col-lbl">BLD</div><div class="mini-col-lbl">CRX</div>
+          <div class="mini-col-lbl">CLK</div><div class="mini-col-lbl">MTW</div><div class="mini-col-lbl">M&amp;M</div><div class="mini-col-lbl">SRS</div>
+        </div>
+      </div>
+      <div class="bundle-tools">
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Call Script Generator</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Call Assist V2</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Phone Verifier</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Outreach Templates</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">AI Email Composer</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Campaign Engine</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Power Dialer Integration</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 6: PROSPECTING SUITE ══ -->
+    <div class="bundle-card">
+      <div class="bundle-header">
+        <span class="bundle-icon">🔍</span>
+        <span class="bundle-title">Prospecting Suite</span>
+        <span class="bundle-count">4 tools</span>
+      </div>
+      <div class="bundle-col-headers">
+        <div class="bundle-tool-label-hd">Tool</div>
+        <div class="mini-checks-hd">
+          <div class="mini-col-lbl fcs-lbl">FCS</div>
+          <div class="mini-col-lbl">RHQ</div><div class="mini-col-lbl">BLD</div><div class="mini-col-lbl">CRX</div>
+          <div class="mini-col-lbl">CLK</div><div class="mini-col-lbl">MTW</div><div class="mini-col-lbl">M&amp;M</div><div class="mini-col-lbl">SRS</div>
+        </div>
+      </div>
+      <div class="bundle-tools">
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">QSR / Franchise Prospector</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Location Scraper</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Owner Lookup</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">ICSC Directory</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 7: AI DEAL INTELLIGENCE ══ -->
+    <div class="bundle-card">
+      <div class="bundle-header">
+        <span class="bundle-icon">🎯</span>
+        <span class="bundle-title">AI Deal Intelligence</span>
+        <span class="bundle-count">8 tools</span>
+      </div>
+      <div class="bundle-col-headers">
+        <div class="bundle-tool-label-hd">Tool</div>
+        <div class="mini-checks-hd">
+          <div class="mini-col-lbl fcs-lbl">FCS</div>
+          <div class="mini-col-lbl">RHQ</div><div class="mini-col-lbl">BLD</div><div class="mini-col-lbl">CRX</div>
+          <div class="mini-col-lbl">CLK</div><div class="mini-col-lbl">MTW</div><div class="mini-col-lbl">M&amp;M</div><div class="mini-col-lbl">SRS</div>
+        </div>
+      </div>
+      <div class="bundle-tools">
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">AI Buyer Match</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Deal Search</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Market Listing Intel</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Deal Signal Intelligence</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Live Market Comps</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">CompStak Lease Comps</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Cost Seg Analyzer</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Daily Listing Updates</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 8: MARKET INTELLIGENCE ══ -->
+    <div class="bundle-card">
+      <div class="bundle-header">
+        <span class="bundle-icon">📡</span>
+        <span class="bundle-title">Market Intelligence</span>
+        <span class="bundle-count">7 tools</span>
+      </div>
+      <div class="bundle-col-headers">
+        <div class="bundle-tool-label-hd">Tool</div>
+        <div class="mini-checks-hd">
+          <div class="mini-col-lbl fcs-lbl">FCS</div>
+          <div class="mini-col-lbl">RHQ</div><div class="mini-col-lbl">BLD</div><div class="mini-col-lbl">CRX</div>
+          <div class="mini-col-lbl">CLK</div><div class="mini-col-lbl">MTW</div><div class="mini-col-lbl">M&amp;M</div><div class="mini-col-lbl">SRS</div>
+        </div>
+      </div>
+      <div class="bundle-tools">
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Tenant Intel</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Demographics Intelligence</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Credit Ratings Dashboard</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">AI News Feed</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Market Report Generator</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Lease Activity Tracker</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">New Construction Intel</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 9: COACHING ══ -->
+    <div class="bundle-card">
+      <div class="bundle-header">
+        <span class="bundle-icon">🏆</span>
+        <span class="bundle-title">Coaching &amp; Performance</span>
+        <span class="bundle-count">7 tools</span>
+      </div>
+      <div class="bundle-col-headers">
+        <div class="bundle-tool-label-hd">Tool</div>
+        <div class="mini-checks-hd">
+          <div class="mini-col-lbl fcs-lbl">FCS</div>
+          <div class="mini-col-lbl">RHQ</div><div class="mini-col-lbl">BLD</div><div class="mini-col-lbl">CRX</div>
+          <div class="mini-col-lbl">CLK</div><div class="mini-col-lbl">MTW</div><div class="mini-col-lbl">M&amp;M</div><div class="mini-col-lbl">SRS</div>
+        </div>
+      </div>
+      <div class="bundle-tools">
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Daily Standup</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Leaderboard</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Win / Loss Engine</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Assessments</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Learning Progress Tracker</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Objection Armory</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">AI Objection Assist</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ 10: DAILY OPERATIONS ══ -->
+    <div class="bundle-card">
+      <div class="bundle-header">
+        <span class="bundle-icon">🌅</span>
+        <span class="bundle-title">Daily Operations</span>
+        <span class="bundle-count">6 tools</span>
+      </div>
+      <div class="bundle-col-headers">
+        <div class="bundle-tool-label-hd">Tool</div>
+        <div class="mini-checks-hd">
+          <div class="mini-col-lbl fcs-lbl">FCS</div>
+          <div class="mini-col-lbl">RHQ</div><div class="mini-col-lbl">BLD</div><div class="mini-col-lbl">CRX</div>
+          <div class="mini-col-lbl">CLK</div><div class="mini-col-lbl">MTW</div><div class="mini-col-lbl">M&amp;M</div><div class="mini-col-lbl">SRS</div>
+        </div>
+      </div>
+      <div class="bundle-tools">
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Activity Log</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Earnings Tracker</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Call Log</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Calendar</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Company Intranet</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div><div class="mini-chk yes">✓</div></div>
+        </div>
+        <div class="bundle-tool-row">
+          <span class="bundle-tool-name">Inbound Buyer Pipeline</span>
+          <div class="mini-checks"><div class="mini-chk fcs">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk yes">✓</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div><div class="mini-chk no">✗</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /bundles-grid -->
+</div><!-- /bundles-section -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-stats">
+    <div class="f-stat"><div class="f-stat-n">$9.7B</div><div class="f-stat-l">Transaction Volume</div></div>
+    <div class="f-div"></div>
+    <div class="f-stat"><div class="f-stat-n">177K</div><div class="f-stat-l">Verified Buyers</div></div>
+    <div class="f-div"></div>
+    <div class="f-stat"><div class="f-stat-n">68</div><div class="f-stat-l">Proprietary Tools</div></div>
+    <div class="f-div"></div>
+    <div class="f-stat"><div class="f-stat-n">5×</div><div class="f-stat-l">Industry Average</div></div>
+  </div>
+  <div class="footer-right">
+    <div class="footer-url">FortisGPT.com</div>
+    <div class="footer-powered">FORTISEDGE · POWERED BY FORTISGPT · FORTIS CAPITAL SOLUTIONS · MARCH 2026</div>
+  </div>
+</footer>
+
+</div><!-- /page -->
+</body>
+</html>
