@@ -139,12 +139,13 @@ body { background:var(--navy); color:var(--white); font-family:'Manrope',sans-se
     </style>
     <div class="vx-wrap" id="vx-wrap">
       <svg class="vx-svg" viewBox="0 0 660 560" xmlns="http://www.w3.org/2000/svg">
-        <line id="vxs0" class="vx-spoke" x1="330" y1="280" x2="330" y2="70"/>
-        <line id="vxs1" class="vx-spoke" x1="330" y1="280" x2="560" y2="165"/>
-        <line id="vxs2" class="vx-spoke" x1="330" y1="280" x2="560" y2="395"/>
-        <line id="vxs3" class="vx-spoke" x1="330" y1="280" x2="330" y2="490"/>
-        <line id="vxs4" class="vx-spoke" x1="330" y1="280" x2="100" y2="395"/>
-        <line id="vxs5" class="vx-spoke" x1="330" y1="280" x2="100" y2="165"/>
+        <!-- Spokes run from hub edge to node edge only — not through cards -->
+        <line id="vxs0" class="vx-spoke" x1="330" y1="205" x2="330" y2="150"/>
+        <line id="vxs1" class="vx-spoke" x1="397" y1="246" x2="488" y2="201"/>
+        <line id="vxs2" class="vx-spoke" x1="397" y1="314" x2="488" y2="359"/>
+        <line id="vxs3" class="vx-spoke" x1="330" y1="355" x2="330" y2="410"/>
+        <line id="vxs4" class="vx-spoke" x1="263" y1="314" x2="172" y2="359"/>
+        <line id="vxs5" class="vx-spoke" x1="263" y1="246" x2="172" y2="201"/>
       </svg>
       <div class="vx-hub"><div class="vx-hub-name">FORTIS</div><div class="vx-hub-sub">CAPITAL</div><div class="vx-hub-tag">6 VERTICALS</div></div>
       <div class="vx-node" id="vxn0" style="top:70px;left:330px;"><div class="vx-node-title">NET LEASE</div><div class="vx-node-sub">Single Tenant Assets</div><div class="vx-badge">Heritage Vertical</div></div>
