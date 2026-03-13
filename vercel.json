@@ -3,6 +3,8 @@
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/letter", "dest": "/letter.html" },
     { "src": "/expansion", "dest": "/expansion.html" },
-    { "src": "/", "dest": "/index.html" }
+    { "src": "/", "dest": "/index.html" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
